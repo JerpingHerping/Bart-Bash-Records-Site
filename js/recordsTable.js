@@ -1,3 +1,8 @@
+/**
+ * Fetches Bart Bash data from a Google Sheet to be displayed in an HTML datatable.
+ *
+ * @author Austin deHaan & ChatGPT
+ */
 const sheetURL =
   "https://docs.google.com/spreadsheets/d/e/2PACX-1vT4DZLR5OHCS6HwuxB-LuCigA4kJbvyDKyn4OvC1xotc989I6tVABOlKRsAQeWaeQeU53O-xra0Bag1/pub?gid=0&single=true&output=csv";
 
