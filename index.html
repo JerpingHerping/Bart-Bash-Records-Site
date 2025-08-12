@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bart Bash Records</title>
+    <!-- <link rel="icon" type="image/x-icon" href="/imgs/gbe-favicon.jpg"> -->
+    <link rel="stylesheet" href="css/styles.css">
+    <script src="https://kit.fontawesome.com/83472722b5.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+
+    <main>
+
+        <section class="heading">
+            <a href="../index.html">
+                <!-- <img src="imgs/gbe-banner.jpg" alt="Greene Beene Banner" class="gbeBanner" /> -->
+            </a>
+        </section>
+
+        <section class="topInfo">
+            <h1>Bart Bash Records</h1>
+            <h2>Home to the records of Bart Bash!</h2>
+            <p>The records are separated into three categories: Highscore, Single Drop, and Low Score. <br>
+                All scores <i>MUST</i> be provided with a image or video of the record.</p>
+
+
+            <a href="input.html">
+                <h2 class="clickImportant"><b>CLICK HERE TO SUBMIT A RECORD</b></h2>
+            </a>
+            <p><i>Note: Scores will need to be review before their addition to the leaderboard!</i></p>
+        </section>
+
+        <section>
+            <table class="sheetTable">
+                <thead></thead>
+                <tbody></tbody>
+            </table>
+        </section>
+
+        </section>
+
+    </main>
+
+    <footer>
+        <h4><span class="lastUpdated"><i>Last updated: 8/11/25</i></span>
+        </h4>
+        <h4><span><i>Site Version 0.1</span>
+        </h4>
+    </footer>
+
+    <script>
+        const sheetURL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vT4DZLR5OHCS6HwuxB-LuCigA4kJbvyDKyn4OvC1xotc989I6tVABOlKRsAQeWaeQeU53O-xra0Bag1/pub?gid=0&single=true&output=csv";
+
+        fetch(sheetURL)
+            .then(response => response.text())
+            .then(data => {
+                const rows = data.split("\n").map(row => row.split(","));
+
+                // Table references
+                const thead = document.querySelector(".sheetTable thead");
+                const tbody = document.querySelector(".sheetTable tbody");
+
+                // Create header row
+                let headerHTML = "<tr>";
+                rows[0].forEach(header => {
+                    headerHTML += `<th>${header.trim()}</th>`;
+                });
+                headerHTML += "</tr>";
+                thead.innerHTML = headerHTML;
+
+                // Create table body rows
+                for (let i = 1; i < rows.length; i++) {
+                    let rowHTML = "<tr>";
+                    rows[i].forEach(cell => {
+                        rowHTML += `<td>${cell.trim()}</td>`;
+                    });
+                    rowHTML += "</tr>";
+                    tbody.innerHTML += rowHTML;
+                }
+            })
+            .catch(error => console.error("Error fetching Google Sheet data:", error));
+    </script>
+
+    <script>
+        document.getElementById("yearFooter").textContent = new Date().getFullYear();
+    </script>
+
+</body>
+
+</html>

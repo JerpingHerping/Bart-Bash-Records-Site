@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bart Bash Records - Input Score</title>
+    <!-- <link rel="icon" type="image/x-icon" href="/imgs/gbe-favicon.jpg"> -->
+    <link rel="stylesheet" href="css/styles.css">
+    <script src="https://kit.fontawesome.com/83472722b5.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+
+    <main>
+
+        <section class="heading">
+            <a href="../index.html">
+                <!-- <img src="imgs/gbe-banner.jpg" alt="Greene Beene Banner" class="gbeBanner" /> -->
+            </a>
+        </section>
+
+        <section class="topInfo">
+            <h1>Bart Bash Score Submission</h1>
+            <div class="submissionInfo">
+                <p>The records are separated into three categories: Highscore, Single Drop, and Low Score. <br>
+                    All scores <i>MUST</i> be provided with a image or video of the record.</p>
+                <a href="index.html">
+                    <h2 class="clickImportant"><b>Return to Leaderboard</b></h2>
+                </a>
+            </div>
+        </section>
+
+        <section>
+
+        </section class="form">
+        <form id="submissionForm">
+            <label>Username:</label><br>
+            <input type="text" name="first_name" required><br><br>
+
+            <label>Highscore:</label><br>
+            <input type="text" name="last_name"><br><br>
+
+            <label>Single Drop:</label><br>
+            <input type="text" name="email"><br><br>
+
+            <label>Low Score:</label><br>
+            <input type="text" name="message"><br><br>
+
+            <label>Record Image:</label><br>
+            <input type="file" name="image" accept="image/*" required><br><br>
+
+            <button type="submit">Submit</button>
+        </form>
+        </section>
+
+        <section class="notice">
+            <h2></h2>
+        </section>
+
+    </main>
+
+    <footer>
+        <h4><span class="lastUpdated"><i>Last updated: 8/4/25</i></span>
+        </h4>
+    </footer>
+
+    <script>
+        /**
+         * Script made by Austin deHaan w/ help from ChatGPT :)
+         **/
+        const form = document.getElementById("submissionForm");
+        const notice = document.querySelector(".notice h2");
+
+        form.addEventListener("submit", function (e) {
+            e.preventDefault();
+            console.log("Form submit intercepted");
+
+            notice.innerHTML = "Saving... saving...";
+            notice.style.color = "grey";
+
+            const file = form.image.files[0];
+            if (!file) {
+                alert("Please select an image before submitting.");
+                return;
+            }
+            console.log("Selected file:", file.name, file.type, file.size);
+
+            const reader = new FileReader();
+
+            reader.onloadend = function () {
+                console.log("FileReader finished reading file");
+
+                const fullDataURL = reader.result;
+
+                fetch("https://script.google.com/macros/s/AKfycbz2al4wGrJ7w3jO9kgP4wJCd6Hocb3Uu1xFZtP1BckrV6s1R8zLKicPGKu9FjMzhesPeg/exec", {
+
+                    method: "POST",
+                    body: JSON.stringify({
+
+                        first_name: form.first_name.value,
+                        last_name: form.last_name.value,
+                        email: form.email.value,
+                        message: form.message.value,
+                        image: fullDataURL,
+                        imageName: "BartBashEntry_" + form.first_name.value + "_" + new Date(),
+                        mimeType: file.type
+
+                    })
+                })
+                    .then(res => {
+
+                        console.log("Server responded with status", res.status);
+                        return res.json();
+
+                    })
+                    .then(data => {
+                        console.log("Response JSON:", data);
+
+                        if (data.status === "success") {
+
+                            notice.innerHTML = "Record successfully submitted!";
+                            notice.style.color = "green";
+                            form.reset();
+
+                        } else {
+
+                            alert("Error: " + JSON.stringify(data));
+                            console.error("Error details:", data);
+
+                        }
+
+                    })
+                    .catch(err => {
+
+                        console.error("Fetch error:", err);
+                        notice.innerHTML = "Record failed to be submitted.";
+                        notice.style.color = "red";
+
+                    });
+            };
+
+            reader.onerror = function (err) {
+
+                console.error("FileReader error:", err);
+                notice.innerHTML = "Record failed to be submitted.";
+                notice.style.color = "green";
+
+            };
+
+            reader.readAsDataURL(file);
+        });
+    </script>
+
+    <script>
+        document.getElementById("yearFooter").textContent = new Date().getFullYear();
+    </script>
+
+</body>
+
+</html>
