@@ -8,18 +8,12 @@
     <!-- <link rel="icon" type="image/x-icon" href="/imgs/gbe-favicon.jpg"> -->
     <link rel="stylesheet" href="css/styles.css">
     <script src="https://kit.fontawesome.com/83472722b5.js" crossorigin="anonymous"></script>
-
+    <script src="js/lastUpdated.js"></script>
 </head>
 
 <body>
 
     <main>
-
-        <section class="heading">
-            <a href="../index.html">
-                <!-- <img src="imgs/gbe-banner.jpg" alt="Greene Beene Banner" class="gbeBanner" /> -->
-            </a>
-        </section>
 
         <section class="topInfo">
             <h1>Bart Bash Score Submission</h1>
@@ -32,27 +26,25 @@
             </div>
         </section>
 
-        <section>
+        <section class="form">
+            <form id="submissionForm">
+                <label>Username:</label><br>
+                <input type="text" name="first_name" required><br><br>
 
-        </section class="form">
-        <form id="submissionForm">
-            <label>Username:</label><br>
-            <input type="text" name="first_name" required><br><br>
+                <label>Highscore:</label><br>
+                <input type="text" name="last_name"><br><br>
 
-            <label>Highscore:</label><br>
-            <input type="text" name="last_name"><br><br>
+                <label>Single Drop:</label><br>
+                <input type="text" name="email"><br><br>
 
-            <label>Single Drop:</label><br>
-            <input type="text" name="email"><br><br>
+                <label>Low Score:</label><br>
+                <input type="text" name="message"><br><br>
 
-            <label>Low Score:</label><br>
-            <input type="text" name="message"><br><br>
+                <label>Record Image:</label><br>
+                <input type="file" name="image" accept="image/*" required><br><br>
 
-            <label>Record Image:</label><br>
-            <input type="file" name="image" accept="image/*" required><br><br>
-
-            <button type="submit">Submit</button>
-        </form>
+                <button type="submit">Submit</button>
+            </form>
         </section>
 
         <section class="notice">
@@ -62,8 +54,11 @@
     </main>
 
     <footer>
-        <h4><span class="lastUpdated"><i>Last updated: 8/4/25</i></span>
+        <h4><span class="lastUpdated"><i></i></span>
         </h4>
+        <h4><span class="version"></span></h4>
+        <h5>All credit goes to TeleSTOP Games, the creator(s) of Bart Bash!</h5>
+        <h5>Site created by Greene Beene Enterprises</h5>
     </footer>
 
     <script>
@@ -94,7 +89,7 @@
 
                 const fullDataURL = reader.result;
 
-                fetch("https://script.google.com/macros/s/AKfycbz2al4wGrJ7w3jO9kgP4wJCd6Hocb3Uu1xFZtP1BckrV6s1R8zLKicPGKu9FjMzhesPeg/exec", {
+                fetch("https://script.google.com/macros/s/AKfycbxx3xwaQaMbpymn6csACeFLt0oCH-iClYWn7gv1GDEo8a3Rc2lMFQTD5m0YkSMk8rwEvw/exec", {
 
                     method: "POST",
                     body: JSON.stringify({
@@ -145,7 +140,7 @@
 
                 console.error("FileReader error:", err);
                 notice.innerHTML = "Record failed to be submitted.";
-                notice.style.color = "green";
+                notice.style.color = "red";
 
             };
 

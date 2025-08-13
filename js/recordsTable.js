@@ -32,5 +32,29 @@ fetch(sheetURL)
       rowHTML += "</tr>";
       tbody.innerHTML += rowHTML;
     }
+
+    // ---- Add Bart images inside first column of top 3 ----
+    const medalImages = [
+      "imgs/sbartg.png", // 1st place
+      "imgs/sbartc.png", // 2nd place
+      "imgs/gwbart.png", // 3rd place
+    ];
+
+    const tableRows = tbody.querySelectorAll("tr");
+    tableRows.forEach((row, index) => {
+      if (index < 3) {
+        // Top 3 only
+        const firstCell = row.querySelector("td");
+        if (firstCell) {
+          const img = document.createElement("img");
+          img.src = medalImages[index];
+          img.alt = `${index + 1} place`;
+          img.classList.add("medal-icon");
+
+          // Insert image before the text in the cell
+          firstCell.prepend(img);
+        }
+      }
+    });
   })
   .catch((error) => console.error("Error fetching Google Sheet data:", error));
