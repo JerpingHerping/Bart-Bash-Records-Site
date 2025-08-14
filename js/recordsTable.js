@@ -18,7 +18,7 @@ fetch(sheetURL)
     // Create header row
     let headerHTML = "<tr>";
     rows[0].forEach((header) => {
-      headerHTML += `<th>${header.trim()}</th>`;
+      headerHTML += `<th>${header.trim()} <i class="fa-solid fa-sort"></i>`;
     });
     headerHTML += "</tr>";
     thead.innerHTML = headerHTML;
@@ -58,3 +58,71 @@ fetch(sheetURL)
     });
   })
   .catch((error) => console.error("Error fetching Google Sheet data:", error));
+
+// search bar
+document.addEventListener("DOMContentLoaded", () => {
+  const filterInput = document.getElementById("filterInput");
+  const filterBtn = document.getElementById("filterBtn");
+  const table = document.querySelector(".sheetTable");
+
+  filterBtn.addEventListener("click", () => {
+    const filter = filterInput.value.toLowerCase();
+    const rows = table.querySelectorAll("tbody tr");
+
+    rows.forEach((row) => {
+      const text = row.innerText.toLowerCase();
+      row.style.display = text.includes(filter) ? "" : "none";
+    });
+  });
+});
+
+// individual column sorting
+document.addEventListener("DOMContentLoaded", () => {
+  const table = document.querySelector(".sheetTable");
+
+  const observer = new MutationObserver(() => {
+    const thead = table.querySelector("thead");
+    if (!thead || thead.rows.length === 0) return;
+
+    // Prevent adding listeners twice
+    if (thead.querySelector("th[data-sortable]")) return;
+
+    const headers = thead.rows[0].cells;
+
+    Array.from(headers).forEach((header, index) => {
+      header.style.cursor = "pointer";
+      header.setAttribute("data-sortable", "true");
+
+      // Default sort direction: true = low→high, false = high→low
+      let sortAsc = index === headers.length - 1 ? false : true;
+
+      header.addEventListener("click", () => {
+        sortTableByColumn(table, index, sortAsc);
+        // Toggle on next click
+        sortAsc = !sortAsc;
+      });
+    });
+  });
+
+  observer.observe(table.querySelector("thead"), { childList: true });
+
+  function sortTableByColumn(table, colIndex, asc = true) {
+    const tbody = table.querySelector("tbody");
+    const rowsArray = Array.from(tbody.querySelectorAll("tr"));
+
+    rowsArray.sort((a, b) => {
+      let aText = a.cells[colIndex].innerText.trim();
+      let bText = b.cells[colIndex].innerText.trim();
+
+      // Handle numbers vs text
+      let aVal = parseFloat(aText.replace(/,/g, "")) || aText.toLowerCase();
+      let bVal = parseFloat(bText.replace(/,/g, "")) || bText.toLowerCase();
+
+      if (aVal < bVal) return asc ? -1 : 1;
+      if (aVal > bVal) return asc ? 1 : -1;
+      return 0;
+    });
+
+    rowsArray.forEach((row) => tbody.appendChild(row));
+  }
+});
