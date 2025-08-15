@@ -4,6 +4,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   if (lastUpdated) {
     lastUpdated.innerHTML = "Last updated: 8/14/25";
-    version.innerHTML = "Site Version 0.2";
+    version.innerHTML = "Site Version 0.21";
   }
 });
