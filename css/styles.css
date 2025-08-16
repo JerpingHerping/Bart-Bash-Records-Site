@@ -24,7 +24,7 @@ body {
   border-style: solid;
   border-width: 20px;
   border-radius: 10px;
-  background-color: rgb(229, 250, 250);
+  background-color: rgb(219, 245, 245);
   font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
   box-sizing: border-box;
 }
@@ -201,6 +201,55 @@ a:visited {
   font-size: 20px;
 }
 
+.topBar {
+  text-align: center;
+  margin-top: 0%;
+  background: rgb(21, 49, 35);
+  padding: 10px;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+
+.topBar h5 {
+  color: white;
+  font-size: 0.8rem;
+  text-align: center;
+  margin: 0;
+}
+
+.archivedVersion {
+  margin: 25px;
+  background-color: rgb(180, 255, 250);
+  padding: 15px;
+  border-radius: 20px;
+}
+
+.archivedVersion:hover {
+  background-color: rgb(150, 235, 230);
+  transform: scale(1.02);
+  transition: transform 0.2s ease-in-out;
+  cursor: pointer;
+}
+
+.archivedVersion h3,
+.archivedVersion h5 {
+  color: rgb(54, 52, 52);
+}
+
+.blocked {
+  opacity: 0.5;
+  margin: 25px;
+  background-color: rgb(192, 192, 192);
+  padding: 15px;
+  border-radius: 20px;
+}
+
+.tableVer {
+  float: right;
+  margin-right: 15px;
+  opacity: 0.4;
+}
+
 /* MEDIA QUERIES */
 /* tablet view */
 @media (max-width: 1400px) {
@@ -229,6 +278,20 @@ a:visited {
   td {
     text-align: center;
     padding: 20px;
+  }
+
+  .topBar {
+    text-align: center;
+    margin-left: 50px;
+    margin-right: 50px;
+    margin-top: -10px;
+  }
+
+  .topBar h5 {
+    color: white;
+    font-size: 0.8rem;
+    text-align: center;
+    margin: 0;
   }
 }
 
@@ -329,5 +392,11 @@ a:visited {
 
   .bart {
     scale: 0.8;
+  }
+
+  .topBar {
+    margin-left: 50px;
+    margin-right: 50px;
+    margin-top: -10px;
   }
 }

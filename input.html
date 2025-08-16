@@ -29,6 +29,10 @@
         <section class="form">
             <form id="submissionForm">
                 <label>Username:</label><br>
+                <p style="font-size: small; text-align: center;">Make sure to use the <i><b>same</b></i> name you used
+                    for your previous
+                    record to
+                    have it update your previous record(s)!</p>
                 <input type="text" name="first_name" required><br><br>
 
                 <label>Highscore:</label><br>
@@ -41,7 +45,10 @@
                 <input type="text" name="message"><br><br>
 
                 <label>Record Image:</label><br>
-                <input type="file" name="image" accept="image/*" required><br><br>
+                <p style="font-size: small; text-align: center;">Right now you can only submit one image, so come back
+                    to submit more
+                    records!</p>
+                <input type="file" name="image" accept="image/*" required style="font-size: small;"><br><br>
 
                 <button type="submit">Submit</button>
             </form>

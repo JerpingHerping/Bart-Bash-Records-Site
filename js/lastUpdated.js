@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const version = document.querySelector(".version");
 
   if (lastUpdated) {
-    lastUpdated.innerHTML = "Last updated: 8/14/25";
-    version.innerHTML = "Site Version 0.21";
+    lastUpdated.innerHTML = "Last updated: 8/15/25";
+    version.innerHTML = "Site Version 0.3";
   }
 });
